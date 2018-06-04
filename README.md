@@ -1,6 +1,3 @@
-# Fund
-我的基金计算
-配置fund.conf,格式为：
-基金代码:持有金额
+# Python-crawler
+python爬虫代码实践
 
-运行代码计算出当前基金总盈利情况。
