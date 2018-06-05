@@ -6,8 +6,12 @@ import traceback
 import requests
 from bs4 import BeautifulSoup
 
+import time
+
+current_milli_time = lambda: int(round(time.time() * 1000))
+
 sum = 0
-base_url = 'http://fund.eastmoney.com/'
+base_url = 'http://fundgz.1234567.com.cn/js/{}.js?rt={}'
 
 def get_html(url):
     try:
@@ -21,21 +25,16 @@ def get_html(url):
 
 
 def get_concent(url,amount):
-    html=get_html(url)
-    soup=BeautifulSoup(html,'lxml')
-    titlediv=soup.find('div',attrs={'class':'fundDetail-tit'})
-    # time=soup.find('span',attrs={'id':'gz_gztime'})
-    # print(time.text)
-    curFundInfo=soup.find('dd',attrs={'class':'dataNums'})
+    res=get_html(url)
+    res=res[8:-2]
+    fundinfo=json.loads(res)
+    print('当前时间：'+fundinfo['gztime'])
     comment={}
     try:
-        comment['基金名']=titlediv.text.strip().replace(u'\xa0', u' ')
-        comment['净值']=curFundInfo.find('span',attrs={'id':'gz_gsz'}).text.strip()
-        text2=curFundInfo.find('span',attrs={'id':'gz_gszzl'}).text.strip()
-        comment['涨幅率']=text2
-        comment['盈利']=float(text2[1:-1])*amount/100
-        if text2[0:1]=='-':
-            comment['盈利']=comment['盈利']*-1
+        comment['基金名']=fundinfo['name']
+        comment['净值']=fundinfo['gsz']
+        comment['涨幅率']=fundinfo['gszzl']+'%'
+        comment['盈利']=float(fundinfo['gszzl'])*amount/100
         global sum
         sum+=comment['盈利']
     except BaseException as e:
@@ -61,7 +60,7 @@ def main(base_url):
             codelist.append(fund['fundcode'])
             amountlist.append(float(fund['fundamount']))
     for i in codelist:
-        url_list.append(base_url+i+'.html')
+        url_list.append(base_url.format(i,current_milli_time()))
     print('url生成完成')
 
     for url,amount in zip(url_list,amountlist):
