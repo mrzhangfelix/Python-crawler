@@ -1,24 +1,24 @@
 {
   "fundlist":[
     {
+      "fundcode":"160222",
+      "fundamount":"1984"
+    },
+    {
       "fundcode": "160219",
       "fundamount":"2642"
     },
     {
-      "fundcode":"160222",
-      "fundamount":"1928"
-    },
-    {
       "fundcode": "000960",
-      "fundamount":"2651"
+      "fundamount":"2728"
     },
     {
       "fundcode":"161725",
-      "fundamount":"4228"
+      "fundamount":"4360"
     },
     {
       "fundcode": "040008",
-      "fundamount":"930"
+      "fundamount":"954"
     }
   ]
 }
