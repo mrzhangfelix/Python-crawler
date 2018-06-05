@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import json
 import traceback
 
 import requests
@@ -10,7 +11,8 @@ base_url = 'http://fund.eastmoney.com/'
 
 def get_html(url):
     try:
-        r=requests.get(url,timeout=30)
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0) Gecko/20100101 Firefox/60.0'}
+        r=requests.get(url,timeout=30, headers=headers)
         r.raise_for_status()
         r.encoding='utf-8'
         return r.text
@@ -22,6 +24,8 @@ def get_concent(url,amount):
     html=get_html(url)
     soup=BeautifulSoup(html,'lxml')
     titlediv=soup.find('div',attrs={'class':'fundDetail-tit'})
+    # time=soup.find('span',attrs={'id':'gz_gztime'})
+    # print(time.text)
     curFundInfo=soup.find('dd',attrs={'class':'dataNums'})
     comment={}
     try:
@@ -50,18 +54,18 @@ def main(base_url):
     codelist=[]
     amountlist=[]
     url_list=[]
-    with open('fund.conf', 'r') as f:
-        fundlist=f.readlines()
-        for fund in fundlist:
-            i=fund.strip().split(':')
-            codelist.append(i[0])
-            amountlist.append(float(i[1]))
+    with open('fund.json', 'r') as f:
+        fundlistJson=f.read()
+        fundlist=json.loads(fundlistJson)
+        for fund in fundlist['fundlist']:
+            codelist.append(fund['fundcode'])
+            amountlist.append(float(fund['fundamount']))
     for i in codelist:
         url_list.append(base_url+i+'.html')
     print('url生成完成')
 
-    for url,jine in zip(url_list,amountlist):
-        content=get_concent(url,jine)
+    for url,amount in zip(url_list,amountlist):
+        content=get_concent(url,amount)
         show(content)
     print('当前基金总盈利:'+str(sum))
 
