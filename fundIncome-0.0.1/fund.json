@@ -1,0 +1,24 @@
+{
+  "fundlist":[
+    {
+      "fundcode": "160219",
+      "fundamount":"2642"
+    },
+    {
+      "fundcode":"160222",
+      "fundamount":"1928"
+    },
+    {
+      "fundcode": "000960",
+      "fundamount":"2651"
+    },
+    {
+      "fundcode":"161725",
+      "fundamount":"4228"
+    },
+    {
+      "fundcode": "040008",
+      "fundamount":"930"
+    }
+  ]
+}
