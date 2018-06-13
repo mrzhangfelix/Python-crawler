@@ -1,24 +1,35 @@
 {
+  "mode":2,
   "fundlist":[
     {
-      "fundcode":"160222",
-      "fundamount":"1984"
+      "fundcode": "160219",
+      "fundamount":"4198",
+      "Holdingshare":4431
     },
     {
-      "fundcode": "160219",
-      "fundamount":"2642"
+      "fundcode":"160222",
+      "fundamount":"4428",
+      "Holdingshare":1757
     },
     {
       "fundcode": "000960",
-      "fundamount":"2728"
+      "fundamount":"4196",
+      "Holdingshare":3264
     },
     {
       "fundcode":"161725",
-      "fundamount":"4360"
+      "fundamount":"5937",
+      "Holdingshare":1624
     },
     {
       "fundcode": "040008",
-      "fundamount":"954"
+      "fundamount":"968",
+      "Holdingshare":621
+    },
+    {
+      "fundcode": "161720",
+      "fundamount":"1000",
+      "Holdingshare":1067
     }
   ]
 }
